@@ -8,19 +8,12 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    host: '0.0.0.0',
-    port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://35.154.220.113:3000', // Your backend (using HTTP for dev)
         changeOrigin: true,
-        secure: false,
-        // Needed for cookies to work with CORS
-        configure: (proxy, options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
-            proxyReq.setHeader('origin', 'http://localhost:5173');
-          });
-        },
+        secure: false, // Important if backend is HTTP during dev
+        rewrite: (path) => path.replace(/^\/api/, ''), // Optional: rewrite path if needed
       },
     },
   },

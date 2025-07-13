@@ -1,5 +1,15 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "proxies": [
+    {
+      "source": "/api/*",
+      "destination": "https://35.154.220.113:3000/api/*"
+    }
   ]
 }
